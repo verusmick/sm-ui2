@@ -52,7 +52,9 @@ export class HomePage {
     this.backgroundGeolocation
       .configure(config)
       .subscribe((location: BackgroundGeolocationResponse) => {
-        console.log(location);
+
+      console.log('micky');
+      console.log(location);
         this.logs.push(`${location.latitude},${location.longitude}`);
       });
 
@@ -61,6 +63,7 @@ export class HomePage {
 
   }
   stopBackgroundGeolocation(){
+    alert('STOP')
     this.backgroundGeolocation.stop();
   }
 }
