@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import {
   BackgroundGeolocation,
   BackgroundGeolocationConfig,
@@ -13,7 +13,7 @@ import {
 export class HomePage {
   logs: string[] = [];
 
-  constructor(public navCtrl: NavController, private backgroundGeolocation: BackgroundGeolocation) {
+  constructor(public navCtrl: NavController, private backgroundGeolocation: BackgroundGeolocation, public app: App) {
   }
 
 
@@ -65,5 +65,11 @@ export class HomePage {
   stopBackgroundGeolocation(){
     alert('STOP')
     this.backgroundGeolocation.stop();
+  }
+
+  logout() {
+    // Api token
+    // const  root = this.app.getRootNavById();
+    // root.popToRoot();
   }
 }

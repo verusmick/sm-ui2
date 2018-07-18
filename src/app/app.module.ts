@@ -11,7 +11,9 @@ import {LoginPage} from '../pages/login/login'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import {HttpClientModule} from '@angular/common/http'
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +40,8 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
     StatusBar,
     SplashScreen,
     BackgroundGeolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider
   ]
 })
 export class AppModule {}
