@@ -17,7 +17,7 @@ import {AuthServiceProvider} from '../../providers/auth-service/auth-service'
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  logs: any[] = [];
+  logs: any;
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +33,7 @@ export class LoginPage {
   login() {
     this.authService.getData().subscribe(
       (data) => {
-        this.logs = data
+        this.logs = data;
         setTimeout(() => {
           this.navCtrl.setRoot(HomePage);
         }, 3000);
