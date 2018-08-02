@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-let apiUrl  = "http://192.168.0.15:3000/";
+let apiUrl  = "http://192.168.0.17:3000/";
 
 /*
   Generated class for the AuthServiceProvider provider.

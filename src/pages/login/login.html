@@ -1,34 +1,35 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!--<ion-header>-->
-
-  <!--<ion-navbar>-->
-    <!--<ion-title>login</ion-title>-->
-  <!--</ion-navbar>-->
-
-<!--</ion-header>-->
-
-
-<ion-content padding>
-  <img src="assets/imgs/sm-logo.png">
-  <ion-item>
-    <ion-label fixed> Username</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label fixed>Password</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
-  <button ion-button block (click)="login()"> Login </button>
-
-  <ion-list>
-    <ion-item *ngFor="let log of logs">
-      {{ log.nombres }}
-    </ion-item>
-  </ion-list>
-
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <form>
+    <ion-list>
+      <ion-item text-center>
+        <img height="110px" src="assets/imgs/sm-logo.png">
+      </ion-item>
+      <ion-item>
+        <ion-icon name="person" item-left></ion-icon>
+        <ion-label stacked>Nº de Cedula de Identidad:</ion-label>
+        <ion-input type="text" placeholder="Nº de Cedula de Identidad"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="key" item-left></ion-icon>
+        <ion-label stacked>Password:</ion-label>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" (click)="login()">Ingresar</button>
+    </div>
+  </form>
+  <!--<div text-center>-->
+  <!--<a ion-button block clear >-->
+  <!--Nueva cuenta-->
+  <!--</a>-->
+  <!--<a ion-button block clear >-->
+  <!--Olvide password-->
+  <!--</a>-->
+  <!--</div>-->
 </ion-content>
