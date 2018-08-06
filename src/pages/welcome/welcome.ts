@@ -25,6 +25,7 @@ export class WelcomePage {
   }
 
   login(){
-    this.navCtrl.push(LoginPage);
+    // this.navCtrl.push(LoginPage);
+    this.navCtrl.setRoot(LoginPage);
   }
 }

@@ -31,16 +31,25 @@ export class LoginPage {
   }
 
   login() {
-    this.authService.getData().subscribe(
-      (data) => {
-        this.logs = data;
-        setTimeout(() => {
-          this.navCtrl.setRoot(HomePage);
-        }, 3000);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+    this.authService.getData().then(data=>{
+      this.logs = data;
+      setTimeout(() => {
+        this.navCtrl.setRoot(HomePage);
+      }, 3000);
+    }).catch(error=>{
+      console.error(error);
+    })
+
+      // this.authService.getData().subscribe(
+      // (data) => {
+      //   this.logs = data;
+      //   setTimeout(() => {
+      //     this.navCtrl.setRoot(HomePage);
+      //   }, 3000);
+      // },
+      // (error) => {
+      //   console.error(error);
+      // }
+    // )
   }
 }

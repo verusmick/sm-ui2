@@ -1,13 +1,14 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Login</ion-title>
+    <ion-title text-center>Login</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <form>
     <ion-list>
-      <ion-item text-center>
-        <img height="110px" src="assets/imgs/sm-logo.png">
+      <!--<ion-item  style="margin-top: 100px" text-center>-->
+      <ion-item   text-center>
+        <img height="110px"  src="assets/imgs/sm-logo.png">
       </ion-item>
       <ion-item>
         <ion-icon name="person" item-left></ion-icon>
@@ -24,6 +25,11 @@
       <button ion-button block type="submit" (click)="login()">Ingresar</button>
     </div>
   </form>
+  <ion-list>
+    <ion-item *ngFor="let log of logs">
+      {{ log.nombres }}
+    </ion-item>
+  </ion-list>
   <!--<div text-center>-->
   <!--<a ion-button block clear >-->
   <!--Nueva cuenta-->
