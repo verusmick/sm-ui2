@@ -9,6 +9,9 @@ import { ListPage } from '../pages/list/list';
 import {WelcomePageModule} from '../pages/welcome/welcome.module'
 import {LoginPageModule} from '../pages/login/login.module'
 
+import {ClientsPageModule} from '../pages/clients/clients.module'
+import {InventoryPageModule} from '../pages/inventory/inventory.module'
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -27,7 +30,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     LoginPageModule,
-    WelcomePageModule
+    WelcomePageModule,
+    ClientsPageModule,
+    InventoryPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
