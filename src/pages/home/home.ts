@@ -12,8 +12,10 @@ import {
 })
 export class HomePage {
   logs: string[] = [];
+  user:any;
 
   constructor(public navCtrl: NavController, private backgroundGeolocation: BackgroundGeolocation, public app: App) {
+    this.user = localStorage.getItem('usr')
   }
 
 

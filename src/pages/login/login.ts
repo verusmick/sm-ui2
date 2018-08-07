@@ -17,8 +17,8 @@ import {AuthServiceProvider} from '../../providers/auth-service/auth-service'
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  logs: any;
-
+  authUserData = {ci: '', password: ''};
+  responseData: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,25 +31,14 @@ export class LoginPage {
   }
 
   login() {
-    this.authService.getData().then(data=>{
-      this.logs = data;
-      setTimeout(() => {
-        this.navCtrl.setRoot(HomePage);
-      }, 3000);
-    }).catch(error=>{
+    this.authService.login(this.authUserData).then(data => {
+      this.responseData = data;
+      // console.log('responseData',this.responseData);
+      localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
+      localStorage.setItem('tk', JSON.stringify(this.responseData.data.token));
+      this.navCtrl.setRoot(HomePage);
+    }).catch(error => {
       console.error(error);
     })
-
-      // this.authService.getData().subscribe(
-      // (data) => {
-      //   this.logs = data;
-      //   setTimeout(() => {
-      //     this.navCtrl.setRoot(HomePage);
-      //   }, 3000);
-      // },
-      // (error) => {
-      //   console.error(error);
-      // }
-    // )
   }
 }

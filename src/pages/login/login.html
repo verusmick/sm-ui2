@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <form>
+  <form (ngSubmit)="login()" #registerForm="ngForm">
     <ion-list>
       <!--<ion-item  style="margin-top: 100px" text-center>-->
       <ion-item   text-center>
@@ -13,29 +13,16 @@
       <ion-item>
         <ion-icon name="person" item-left></ion-icon>
         <ion-label stacked>Nº de Cedula de Identidad:</ion-label>
-        <ion-input type="text" placeholder="Nº de Cedula de Identidad"></ion-input>
+        <ion-input type="text" placeholder="Nº de Cedula de Identidad" [(ngModel)]="authUserData.ci" name="ci"></ion-input>
       </ion-item>
       <ion-item>
         <ion-icon name="key" item-left></ion-icon>
         <ion-label stacked>Password:</ion-label>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="authUserData.password" name="password"></ion-input>
       </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button block type="submit" (click)="login()">Ingresar</button>
+      <button ion-button block type="submit">Ingresar</button>
     </div>
   </form>
-  <ion-list>
-    <ion-item *ngFor="let log of logs">
-      {{ log.nombres }}
-    </ion-item>
-  </ion-list>
-  <!--<div text-center>-->
-  <!--<a ion-button block clear >-->
-  <!--Nueva cuenta-->
-  <!--</a>-->
-  <!--<a ion-button block clear >-->
-  <!--Olvide password-->
-  <!--</a>-->
-  <!--</div>-->
 </ion-content>
