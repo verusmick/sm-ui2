@@ -15,5 +15,12 @@
 
 
 <ion-content padding>
-
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item.razon_social }}
+      <br>
+      <span *ngIf= "item.deuda_actual"><b>Deuda Actual:</b> {{item.deuda_actual}} bs.</span>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -35,7 +35,7 @@ export class LoginPage {
       this.responseData = data;
       // console.log('responseData',this.responseData);
       localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
-      localStorage.setItem('tk', JSON.stringify(this.responseData.data.token));
+      localStorage.setItem('tk', this.responseData.data.token);
       this.navCtrl.setRoot(HomePage);
     }).catch(error => {
       console.error(error);

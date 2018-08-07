@@ -18,6 +18,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {HttpClientModule} from '@angular/common/http'
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { ClientServiceProvider } from '../providers/client-service/client-service';
+import { InventoryServiceProvider } from '../providers/inventory-service/inventory-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SplashScreen,
     BackgroundGeolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    ClientServiceProvider,
+    InventoryServiceProvider
   ]
 })
 export class AppModule {}

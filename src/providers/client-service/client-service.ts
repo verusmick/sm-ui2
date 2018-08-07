@@ -1,0 +1,32 @@
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+
+import {API_ENDPOINT} from '../constants';
+
+/*
+ Generated class for the ClientServiceProvider provider.
+
+ See https://angular.io/guide/dependency-injection for more info on providers
+ and Angular DI.
+ */
+@Injectable()
+export class ClientServiceProvider {
+
+  constructor(public http: HttpClient) {
+    console.log('Hello ClientServiceProvider Provider');
+  }
+
+  getAll() {
+    let token = localStorage.getItem('tk')
+    return new Promise((resolve, reject) => {
+      this.http.get(API_ENDPOINT + '/clients', {headers: {'x-access-token': token}})
+        .subscribe(data => {
+          resolve(data);
+        }, err => {
+          // console.log(err);
+          reject(err)
+        });
+    });
+  }
+
+}
