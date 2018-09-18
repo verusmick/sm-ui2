@@ -20,6 +20,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ClientServiceProvider } from '../providers/client-service/client-service';
 import { InventoryServiceProvider } from '../providers/inventory-service/inventory-service';
+import { GpstrackingServiceProvider } from '../providers/gpstracking-service/gpstracking-service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { InventoryServiceProvider } from '../providers/inventory-service/invento
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     ClientServiceProvider,
-    InventoryServiceProvider
+    InventoryServiceProvider,
+    GpstrackingServiceProvider
   ]
 })
 export class AppModule {}
