@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
 
 import {HomePage} from '../home/home'
 import {AuthServiceProvider} from '../../providers/auth-service/auth-service'
@@ -21,9 +21,11 @@ export class LoginPage {
   responseData: any;
   constructor(
     public navCtrl: NavController,
+    public menuCtrl: MenuController,
     public navParams: NavParams,
     public authService:AuthServiceProvider
   ) {
+    this.menuCtrl.enable(false, 'myMenu');
   }
 
   ionViewDidLoad() {
@@ -35,6 +37,7 @@ export class LoginPage {
       this.responseData = data;
       localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
       localStorage.setItem('tk', this.responseData.data.token);
+      this.menuCtrl.enable(true, 'myMenu');
       this.navCtrl.setRoot(HomePage);
     }).catch(error => {
       console.error(error);

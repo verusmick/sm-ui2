@@ -23,12 +23,7 @@ export class MyApp {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Geolocalización', component: HomePage },
-      // { title: 'List', component: ListPage }
-      { title: 'Clientes', component: ClientsPage },
-      { title: 'Inventarios', component: InventoryPage }
-    ];
+
 
   }
 
@@ -39,6 +34,15 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    this.setPages()
+  }
+
+  setPages(){
+    this.pages = [
+      { title: 'Geolocalización', component: HomePage },
+      { title: 'Clientes', component: ClientsPage },
+      { title: 'Inventarios', component: InventoryPage }
+    ];
   }
 
   openPage(page) {
