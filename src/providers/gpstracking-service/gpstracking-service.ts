@@ -21,7 +21,6 @@ export class GpstrackingServiceProvider {
         console.log(data);
         resolve(data);
       }, err => {
-        // console.log(err);
         reject(err)
       });
     });

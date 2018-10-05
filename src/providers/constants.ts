@@ -1,2 +1,2 @@
-export const API_ENDPOINT = "http://104.248.182.63:3007";
+export const API_ENDPOINT = "http://192.168.0.11:3007";
 

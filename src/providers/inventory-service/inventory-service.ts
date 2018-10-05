@@ -22,7 +22,6 @@ export class InventoryServiceProvider {
         .subscribe(data => {
           resolve(data);
         }, err => {
-          // console.log(err);
           reject(err)
         });
     });

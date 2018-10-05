@@ -33,7 +33,6 @@ export class LoginPage {
   login() {
     this.authService.login(this.authUserData).then(data => {
       this.responseData = data;
-      // console.log('responseData',this.responseData);
       localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
       localStorage.setItem('tk', this.responseData.data.token);
       this.navCtrl.setRoot(HomePage);

@@ -23,7 +23,6 @@ export class ClientServiceProvider {
         .subscribe(data => {
           resolve(data);
         }, err => {
-          // console.log(err);
           reject(err)
         });
     });
