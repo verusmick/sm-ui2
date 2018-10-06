@@ -1,13 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {Events} from 'ionic-angular';
 
-import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
+import {LoginPage} from '../pages/login/login';
+import {HomePage} from '../pages/home/home';
 // import { ListPage } from '../pages/list/list';
-import { ClientsPage } from '../pages/clients/clients';
-import { InventoryPage } from '../pages/inventory/inventory';
+import {ClientsPage} from '../pages/clients/clients';
+import {InventoryPage} from '../pages/inventory/inventory';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,13 +18,18 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-
+    this.events.subscribe('setMenu', () => {
+      this.setPages()
+    });
 
   }
 
@@ -34,15 +40,24 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.setPages()
+
   }
 
-  setPages(){
-    this.pages = [
-      { title: 'Geolocalización', component: HomePage },
-      { title: 'Clientes', component: ClientsPage },
-      { title: 'Inventarios', component: InventoryPage }
+
+  setPages() {
+    let resources = JSON.parse(localStorage.getItem('usr')).resources;
+    let items = [
+      {title: 'Geolocalización', component: HomePage, resourceCode: 'app_Track'},
+      {title: 'Clientes', component: ClientsPage, resourceCode: 'app_order'},
+      {title: 'Inventarios', component: InventoryPage, resourceCode: 'app_order'}
     ];
+    let itemsWithPermissions = [];
+    for (let i = 0; i < items.length; i++) {
+      if(resources.indexOf(items[i].resourceCode) !=-1){
+        itemsWithPermissions.push(items[i]);
+      }
+    }
+    this.pages = itemsWithPermissions;
   }
 
   openPage(page) {
