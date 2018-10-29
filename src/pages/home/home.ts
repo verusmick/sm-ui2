@@ -57,7 +57,7 @@ export class HomePage {
       ///
       url:API_ENDPOINT + '/gpsTracking/sellers',
       httpHeaders:{
-        'test':'test'
+        'userId':JSON.parse(localStorage.getItem('usr')).ci
       }
     };
 
@@ -68,12 +68,15 @@ export class HomePage {
       .subscribe((location: BackgroundGeolocationResponse) => {
       });
 
+    this.gpsTrackingService.setGpsStatus('on', JSON.parse(localStorage.getItem('usr')).ci);
     // start recording location
     this.backgroundGeolocation.start();
+
   }
 
   stopBackgroundGeolocation() {
     alert('STOP')
+    this.gpsTrackingService.setGpsStatus('off', JSON.parse(localStorage.getItem('usr')).ci);
     this.backgroundGeolocation.stop();
   }
 

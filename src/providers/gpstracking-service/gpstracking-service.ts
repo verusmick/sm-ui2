@@ -25,4 +25,15 @@ export class GpstrackingServiceProvider {
       });
     });
   }
+
+  setGpsStatus(status, userId) {
+    return new Promise((resolve, reject) => {
+      this.http.put(API_ENDPOINT + `/gpsTracking/trackStatus/${status === 'on' ? 1 : 2}`, {userId: userId}).subscribe(data => {
+        console.log(data);
+        resolve(data);
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }
