@@ -11,6 +11,7 @@ import {LoginPageModule} from '../pages/login/login.module'
 
 import {ClientsPageModule} from '../pages/clients/clients.module'
 import {InventoryPageModule} from '../pages/inventory/inventory.module'
+import {ProformaPageModule} from '../pages/proforma/proforma.module'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +22,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ClientServiceProvider } from '../providers/client-service/client-service';
 import { InventoryServiceProvider } from '../providers/inventory-service/inventory-service';
 import { GpstrackingServiceProvider } from '../providers/gpstracking-service/gpstracking-service';
+import { ProformaServiceProvider } from '../providers/proforma-service/proforma-service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { GpstrackingServiceProvider } from '../providers/gpstracking-service/gps
     LoginPageModule,
     WelcomePageModule,
     ClientsPageModule,
-    InventoryPageModule
+    InventoryPageModule,
+    ProformaPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +54,8 @@ import { GpstrackingServiceProvider } from '../providers/gpstracking-service/gps
     AuthServiceProvider,
     ClientServiceProvider,
     InventoryServiceProvider,
-    GpstrackingServiceProvider
+    GpstrackingServiceProvider,
+    ProformaServiceProvider
   ]
 })
 export class AppModule {}

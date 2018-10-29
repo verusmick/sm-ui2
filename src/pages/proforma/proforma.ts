@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import {InventoryServiceProvider} from '../../providers/inventory-service/inventory-service';
+import {ProformaServiceProvider} from '../../providers/proforma-service/proforma-service';
 
 /**
- * Generated class for the InventoryPage page.
+ * Generated class for the ProformaPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,20 +12,21 @@ import {InventoryServiceProvider} from '../../providers/inventory-service/invent
 
 @IonicPage()
 @Component({
-  selector: 'page-inventory',
-  templateUrl: 'inventory.html',
+  selector: 'page-proforma',
+  templateUrl: 'proforma.html',
 })
-export class InventoryPage {
-  searchQuery: string = '';
-  items: any;
+  export class ProformaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public inventoryService:InventoryServiceProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public proformaService:ProformaServiceProvider) {
     this.initializeItems();
   }
 
   initializeItems() {
 
-    this.inventoryService.getAll().then(response=>{
+    this.proformaService.getAllClients().then(response=>{
       console.log(response);
       this.items = response
     })
@@ -45,6 +46,7 @@ export class InventoryPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InventoryPage');
+    console.log('ionViewDidLoad ProformaPage');
   }
+
 }

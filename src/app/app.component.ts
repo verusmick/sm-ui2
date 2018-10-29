@@ -9,6 +9,7 @@ import {HomePage} from '../pages/home/home';
 // import { ListPage } from '../pages/list/list';
 import {ClientsPage} from '../pages/clients/clients';
 import {InventoryPage} from '../pages/inventory/inventory';
+import {ProformaPage} from '../pages/proforma/proforma';
 
 @Component({
   templateUrl: 'app.html'
@@ -47,9 +48,10 @@ export class MyApp {
   setPages() {
     let resources = JSON.parse(localStorage.getItem('usr')).resources;
     let items = [
-      {title: 'Geolocalización', component: HomePage, resourceCode: 'app_Track'},
-      {title: 'Clientes', component: ClientsPage, resourceCode: 'app_order'},
-      {title: 'Inventarios', component: InventoryPage, resourceCode: 'app_order'}
+      {title: 'Home', component: HomePage, resourceCode: 'app_Track'},
+      {title: 'GPS', component: ClientsPage, resourceCode: 'app_order'},
+      {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
+      {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'}
     ];
     let itemsWithPermissions = [];
     for (let i = 0; i < items.length; i++) {
