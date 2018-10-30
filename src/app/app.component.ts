@@ -7,9 +7,10 @@ import {Events} from 'ionic-angular';
 import {LoginPage} from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
 import {GpsPage} from '../pages/gps/gps';
+import {InventoryPage} from '../pages/inventory/inventory';
 // import { ListPage } from '../pages/list/list';
 import {ClientsPage} from '../pages/clients/clients';
-import {ProformaPage} from '../pages/proforma/proforma';
+// import {ProformaPage} from '../pages/proforma/proforma';
 
 @Component({
   templateUrl: 'app.html'
@@ -50,8 +51,9 @@ export class MyApp {
     let items = [
       {title: 'Home', component: HomePage, resourceCode: 'app_Track'},
       {title: 'GPS', component: GpsPage, resourceCode: 'app_order'},
-      {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
-      {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'}
+      // {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
+      {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'},
+      {title: 'Productos', component: InventoryPage, resourceCode: 'app_order'}
     ];
     let itemsWithPermissions = [];
     for (let i = 0; i < items.length; i++) {
