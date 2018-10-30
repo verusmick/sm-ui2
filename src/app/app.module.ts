@@ -12,6 +12,7 @@ import {LoginPageModule} from '../pages/login/login.module'
 import {ClientsPageModule} from '../pages/clients/clients.module'
 import {InventoryPageModule} from '../pages/inventory/inventory.module'
 import {ProformaPageModule} from '../pages/proforma/proforma.module'
+import {GpsPageModule} from '../pages/gps/gps.module'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,8 @@ import { ProformaServiceProvider } from '../providers/proforma-service/proforma-
     WelcomePageModule,
     ClientsPageModule,
     InventoryPageModule,
-    ProformaPageModule
+    ProformaPageModule,
+    GpsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

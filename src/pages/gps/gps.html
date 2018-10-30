@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Georeferenciación</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center>
+  <h3>GPS</h3>
+  <ion-buttons center>
+    <button ion-button icon-only (click)="startBackgroundGeolocation()">
+      <ion-icon name="play"></ion-icon>
+    </button>
+    <button ion-button icon-only (click)="stopBackgroundGeolocation()">
+      <ion-icon name="pause"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-content>

@@ -16,6 +16,7 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
   export class ProformaPage {
+  items: any;
 
   constructor(
     public navCtrl: NavController,
