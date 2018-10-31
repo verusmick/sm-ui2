@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 import {InventoryServiceProvider} from '../../providers/inventory-service/inventory-service';
 
 /**
@@ -16,35 +17,27 @@ import {InventoryServiceProvider} from '../../providers/inventory-service/invent
   templateUrl: 'inventory.html',
 })
 export class InventoryPage {
-  searchQuery: string = '';
   items: any;
+  searchTerm: string = '';
+  searchControl: FormControl;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public inventoryService:InventoryServiceProvider) {
-    this.initializeItems();
-  }
-
-  initializeItems() {
-
-    this.inventoryService.getAll().then(response=>{
-      console.log(response);
-      this.items = response
-    })
-  }
-  getItems(ev: any) {
-    this.initializeItems();
-
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public inventoryService: InventoryServiceProvider) {
+    this.searchControl = new FormControl();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InventoryPage');
+    this.setFilteredItems();
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search  => {
+      this.setFilteredItems();
+    });
+  }
+  setFilteredItems() {
+    this.inventoryService.getProducts(this.searchTerm).then(response=>{
+      console.log(response);
+      this.items = response
+    })
   }
 }

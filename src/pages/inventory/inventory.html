@@ -15,10 +15,11 @@
 
 
 <ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm"  [formControl]="searchControl"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      {{ item.producto }}
+      {{ item.producto }}<br>
+      {{item.concentrado}}
       <br>
       <span *ngIf= "item.cantidad_a_la_venta"><b>Cantidad Disponible:</b> {{item.cantidad_a_la_venta}} Items</span>
     </ion-item>
