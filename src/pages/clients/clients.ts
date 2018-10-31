@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 import {ClientServiceProvider} from '../../providers/client-service/client-service';
 
@@ -16,41 +18,27 @@ import {ClientServiceProvider} from '../../providers/client-service/client-servi
   templateUrl: 'clients.html',
 })
 export class ClientsPage {
-  searchQuery: string = '';
   items: any;
+  searchTerm: string = '';
+  searchControl: FormControl;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public clientService:ClientServiceProvider) {
-    this.initializeItems();
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public clientService:ClientServiceProvider) {
+    this.searchControl = new FormControl();
   }
-  initializeItems() {
-
-    this.clientService.getAll().then(response=>{
-      // this.items = [
-      //   'Amsterdam',
-      //   'Bogota'
-      // ];
-      console.log(response);
+  ionViewDidLoad() {
+    this.setFilteredItems();
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search  => {
+      this.setFilteredItems();
+    });
+  }
+  setFilteredItems() {
+    this.clientService.getAll(this.searchTerm).then(response=>{
       this.items = response
     })
-  }
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
-
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientsPage');
   }
 
 }

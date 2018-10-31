@@ -36,7 +36,6 @@ export class InventoryPage {
   }
   setFilteredItems() {
     this.inventoryService.getProducts(this.searchTerm).then(response=>{
-      console.log(response);
       this.items = response
     })
   }
