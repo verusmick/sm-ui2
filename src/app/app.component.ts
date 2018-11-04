@@ -10,7 +10,7 @@ import {GpsPage} from '../pages/gps/gps';
 import {InventoryPage} from '../pages/inventory/inventory';
 // import { ListPage } from '../pages/list/list';
 import {ClientsPage} from '../pages/clients/clients';
-// import {ProformaPage} from '../pages/proforma/proforma';
+import {ProformaPage} from '../pages/proforma/proforma';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,13 +26,10 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               public events: Events) {
-    this.initializeApp();
-
     // used for an example of ngFor and navigation
     this.events.subscribe('setMenu', () => {
       this.setPages()
     });
-
   }
 
   initializeApp() {
@@ -42,7 +39,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
   }
 
 
@@ -51,7 +47,7 @@ export class MyApp {
     let items = [
       {title: 'Home', component: HomePage, resourceCode: 'app_Track'},
       {title: 'GPS', component: GpsPage, resourceCode: 'app_order'},
-      // {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
+      {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
       {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'},
       {title: 'Productos', component: InventoryPage, resourceCode: 'app_order'}
     ];
