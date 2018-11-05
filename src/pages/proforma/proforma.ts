@@ -19,21 +19,23 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
 export class ProformaPage {
-  items: any;
-  searchTerm: string = '';
-
+  proformaData = {client: {razon_social: ''}};
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController) {
   }
 
-  openModal(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentPage, characterNum);
-    modal.present();
-
-    modal.onDidDismiss(data => {
-      console.log(data);
+  openSearchClientModal(characterNum) {
+    let searchClientmodal = this.modalCtrl.create(ModalContentPage, characterNum);
+    searchClientmodal.present();
+    searchClientmodal.onDidDismiss(clientSelected => {
+      if(!clientSelected){return false}
+      this.proformaData.client = clientSelected
     });
+  }
+
+  saveProforma(){
+    console.log(this.proformaData);
   }
 
   ionViewDidLoad() {
@@ -42,7 +44,7 @@ export class ProformaPage {
 }
 
 @Component({
-  templateUrl: 'modal-content.html'
+  templateUrl: 'searchClient.modal.html'
 })
 export class ModalContentPage {
   character;
@@ -58,22 +60,23 @@ export class ModalContentPage {
     this.searchControl = new FormControl();
   }
 
-
-  ionViewDidLoad() {
-    // this.setFilteredItems();
-    this.searchControl.valueChanges.debounceTime(700).subscribe(search  => {
-      this.setFilteredClients();
-    });
+  selectClient(client) {
+    this.dismiss(client)
   }
+
   setFilteredClients() {
     this.proformaService.getClients(this.searchTerm).then(response => {
-      this.items = response
-      console.log('---->', this.items);
+      this.items = response;
     })
   }
 
-  dismiss() {
-    let data = {'foo': 'bar'};
-    this.viewCtrl.dismiss(data);
+  dismiss(clientSelected) {
+    this.viewCtrl.dismiss(clientSelected);
+  }
+
+  ionViewDidLoad() {
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+      this.setFilteredClients();
+    });
   }
 }

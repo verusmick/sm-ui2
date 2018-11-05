@@ -5,16 +5,23 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form (ngSubmit)="saveProforma()">
     <ion-list>
       <ion-item>
         <ion-label stacked>Seleccione un Cliente:</ion-label>
         <!--[disabled]="true"-->
-        <ion-input type="text" (ionFocus)="openModal({charNum: 1})" placeholder="Seleccione un Cliente"></ion-input>
+        <ion-input type="text"
+                   (ionFocus)="openSearchClientModal({charNum: 1})"
+                   [(ngModel)]="proformaData.client.razon_social"
+                   name="razon_social"
+                   placeholder="Seleccione un Cliente">
+        </ion-input>
       </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button block type="submit" >Guardar</button>
+      <button ion-button
+              [disabled]="!proformaData.client.razon_social"
+              block type="submit" >Guardar proforma</button>
     </div>
   </form>
 </ion-content>
