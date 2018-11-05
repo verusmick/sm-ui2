@@ -19,7 +19,7 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
 export class ProformaPage {
-  proformaData = {client: {razon_social: ''}};
+  proformaData = {client: {razon_social: '', label:''}};
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController) {
@@ -30,6 +30,7 @@ export class ProformaPage {
     searchClientmodal.present();
     searchClientmodal.onDidDismiss(clientSelected => {
       if(!clientSelected){return false}
+      clientSelected['label'] =clientSelected.tipo.toLowerCase()+' '+clientSelected.razon_social.toLowerCase();
       this.proformaData.client = clientSelected
     });
   }

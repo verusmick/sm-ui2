@@ -16,7 +16,7 @@
   <ion-searchbar [(ngModel)]="searchTerm"  [formControl]="searchControl" placeholder="Nombre de Cliente"></ion-searchbar>
   <ion-list *ngIf="items?.length > 0">
     <ion-item *ngFor="let item of items" (click)="selectClient(item)">
-      {{ item.razon_social }}
+      {{ item.tipo | lowercase }}&nbsp;{{ item.razon_social | lowercase }}
       <br>
       <span *ngIf= "item.deuda_actual"><b>Deuda Actual:</b> {{item.deuda_actual}} bs.</span>
     </ion-item>
