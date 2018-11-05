@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Description
+      Buscar cliente
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -13,20 +13,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar [(ngModel)]="searchTerm"  [formControl]="searchControl" placeholder="Nombre de Cliente"></ion-searchbar>
   <ion-list>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="{{character.image}}">
-      </ion-avatar>
-      <h2>{{character.name}}</h2>
-      <p>{{character.quote}}</p>
-    </ion-item>
-
-    <ion-item *ngFor="let item of character['items']">
-      {{item.title}}
-      <ion-note item-end>
-        {{item.note}}
-      </ion-note>
+    <ion-item *ngFor="let item of items">
+      {{ item.razon_social }}
+      <br>
+      <span *ngIf= "item.deuda_actual"><b>Deuda Actual:</b> {{item.deuda_actual}} bs.</span>
     </ion-item>
   </ion-list>
 </ion-content>
