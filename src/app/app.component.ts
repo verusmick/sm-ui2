@@ -50,7 +50,7 @@ export class MyApp {
     let resources = JSON.parse(localStorage.getItem('usr')).resources;
     let items = [
       {title: 'Home', component: HomePage, resourceCode: 'app_Track'},
-      {title: 'GPS', component: GpsPage, resourceCode: 'app_order'},
+      {title: 'GPS', component: GpsPage, resourceCode: 'app_Track'},
       // {title: 'Proforma', component: ProformaPage, resourceCode: 'app_order'},
       {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'},
       {title: 'Productos', component: InventoryPage, resourceCode: 'app_order'}
