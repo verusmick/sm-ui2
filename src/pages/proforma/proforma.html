@@ -5,23 +5,39 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="saveProforma()">
-    <ion-list>
-      <ion-item>
-        <ion-label stacked>Seleccione un Cliente:</ion-label>
-        <!--[disabled]="true"-->
-        <ion-input type="text"
-                   (ionFocus)="openSearchClientModal({charNum: 1})"
-                   [(ngModel)]="proformaData.client.label"
-                   name="razon_social"
-                   placeholder="Seleccione un Cliente">
-        </ion-input>
-      </ion-item>
-    </ion-list>
-    <div padding>
-      <button ion-button
-              [disabled]="!proformaData.client.razon_social"
-              block type="submit" >Guardar proforma</button>
-    </div>
-  </form>
+  <ion-item>
+    <ion-label stacked>Seleccione un Cliente:</ion-label>
+    <!--[disabled]="true"-->
+    <ion-input type="text"
+               (ionFocus)="openSearchClientModal({charNum: 1})"
+               [(ngModel)]="proformaData.client.label"
+               name="razon_social"
+               placeholder="Seleccione un Cliente">
+    </ion-input>
+  </ion-item>
+
+  <ion-item text-center>
+    <button ion-button ion-button round (click)="addProductBtn()">
+      Agregue Productos &nbsp;
+      <ion-icon name="md-add-circle"></ion-icon>
+    </button>
+  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>test1</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>test2</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div paddingfull>
+    <button ion-button
+            [disabled]="!proformaData.client.razon_social"
+            (click)="saveProforma()"
+            block>
+      Guardar proforma
+    </button>
+  </div>
 </ion-content>

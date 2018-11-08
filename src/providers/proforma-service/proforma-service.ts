@@ -26,4 +26,16 @@ export class ProformaServiceProvider {
         });
     });
   }
+
+  getProducts(searchTerm) {
+    let token = localStorage.getItem('tk')
+    return new Promise((resolve, reject) => {
+      this.http.get(API_ENDPOINT + '/inventory'+'?like='+searchTerm.trim(), {headers: {'x-access-token': token}})
+        .subscribe(data => {
+          resolve(data);
+        }, err => {
+          reject(err)
+        });
+    });
+  }
 }

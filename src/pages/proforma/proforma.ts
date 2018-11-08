@@ -19,7 +19,7 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
 export class ProformaPage {
-  proformaData = {client: {razon_social: '', label:''}};
+  proformaData = {client: {razon_social: '', label:''}, items:[]};
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController) {
@@ -35,6 +35,14 @@ export class ProformaPage {
     });
   }
 
+  addProductBtn() {
+    let productsModal = this.modalCtrl.create(ProductsModal);
+    productsModal.present();
+    productsModal.onDidDismiss(data => {
+      console.log('onDidDismiss->', data);
+    });
+  }
+
   saveProforma(){
     console.log(this.proformaData);
   }
@@ -44,6 +52,34 @@ export class ProformaPage {
   }
 }
 
+// Products modal
+@Component({
+  templateUrl: 'products.modal.html'
+})
+export class ProductsModal {
+
+  items: any;
+  searchTerm: string = '';
+  searchControl: FormControl;
+
+  constructor(public platform: Platform,
+              public params: NavParams,
+              public viewCtrl: ViewController) {
+    this.searchControl = new FormControl();
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss({'test':123});
+  }
+
+  ionViewDidLoad() {
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+      // this.setFilteredClients();
+    });
+  }
+}
+
+// clients modal
 @Component({
   templateUrl: 'searchClient.modal.html'
 })
