@@ -64,17 +64,29 @@ export class ProductsModal {
 
   constructor(public platform: Platform,
               public params: NavParams,
-              public viewCtrl: ViewController) {
+              public viewCtrl: ViewController,
+              public proformaService: ProformaServiceProvider) {
     this.searchControl = new FormControl();
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss({'test':123});
+  setFilteredProducts(){
+    this.proformaService.getProducts(this.searchTerm).then(data => {
+      this.items= data;
+    })
+  }
+
+  selectProduct(product){
+    this.dismiss(product)
+  }
+
+  dismiss(product) {
+    this.viewCtrl.dismiss(product);
   }
 
   ionViewDidLoad() {
+    this.setFilteredProducts();
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
-      // this.setFilteredClients();
+      this.setFilteredProducts();
     });
   }
 }

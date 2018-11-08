@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Seleccione Productos
+      Seleccione Producto
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -13,5 +13,17 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list radio-group>
+    <ion-searchbar [(ngModel)]="searchTerm"  [formControl]="searchControl" placeholder="Nombre de Producto"></ion-searchbar>
+    <ion-item *ngFor="let item of items" (click)="selectProduct(item)">
+      {{ item.producto}} {{item.concentrado | lowercase}}
+      <br>
+      <span *ngIf="item.cantidad_a_la_venta"><b>Cantidad Disponible:</b> {{item.cantidad_a_la_venta}} Items</span>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="items?.length === 0">
+    <ion-item>
+      No Existen Resultados
+    </ion-item>
+  </ion-list>
 </ion-content>
