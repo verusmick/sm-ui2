@@ -56,11 +56,11 @@ export class ProformaPage {
     this.proformaData.items.splice(index, 1)
   }
 
-  detailProductBtn(index) {
-    let productDetailModal = this.modalCtrl.create(ProductDetailModal, this.proformaData.items[index]);
+  detailProductBtn(product) {
+    let productDetailModal = this.modalCtrl.create(ProductDetailModal, {prod: product});
     productDetailModal.present();
     productDetailModal.onDidDismiss(productDetail => {
-      console.log('productDetail', productDetail);
+      console.log('productDetail', {prod: productDetail});
     });
   }
 
@@ -78,10 +78,13 @@ export class ProformaPage {
   templateUrl: 'productDetail.modal.html'
 })
 export class ProductDetailModal {
+  product: any;
 
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,) {
+    console.log(this.params.get('prod'));
+    this.product = this.params.get('prod')
   }
 
   dismiss() {
