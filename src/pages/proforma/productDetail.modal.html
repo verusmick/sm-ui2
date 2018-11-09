@@ -27,16 +27,24 @@
   </ion-item>
   <ion-item>
     <ion-label stacked>Precio Referencial</ion-label>
-    <ion-select [(ngModel)]="toppings" multiple="false" >
-      <ion-option value="bacon" selected="true">Precio distribuidora: <b>{{product.precio_distribuidora}}</b></ion-option>
-      <ion-option value="olives">Precio Farmacia: <b>{{product.precio_farmacia}}</b></ion-option>
-      <ion-option value="xcheese">Precio Instituciones: <b>{{product.precio_instituciones}}</b></ion-option>
+    <ion-select [(ngModel)]="referencialPrice" (ngModelChange)="selectPrice()">
+      <ion-option value="precio_distribuidora">
+        Precio distribuidora: <b>{{product.precio_distribuidora}}</b>
+      </ion-option>
+      <ion-option value="precio_farmacia">
+        Precio Farmacia: <b>{{product.precio_farmacia}}
+      </b></ion-option>
+      <ion-option value="precio_instituciones">
+        Precio Instituciones: <b>{{product.precio_instituciones}}</b>
+      </ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label stacked>Precio</ion-label>
-    <ion-input type="text"
+    <ion-input type="number"
                name="price"
+               [(ngModel)]="detail.price"
+               (ngModelChange)="calculateTotal()"
                placeholder="Precio">
     </ion-input>
   </ion-item>
@@ -44,19 +52,23 @@
   <ion-item>
     <ion-label stacked>Cantidad</ion-label>
     <ion-input type="number"
+               clearInput
                name="quantity"
+               [(ngModel)]="detail.quantity"
+               (ngModelChange)="calculateTotal()"
                placeholder="Cantidad">
     </ion-input>
   </ion-item>
   <ion-item>
     <ion-label>
       <h1><b>Total</b></h1>
-      <h1><b>1002</b></h1>
+      <h1><b>{{detail.total}}</b></h1>
     </ion-label>
   </ion-item>
   <div paddingfull>
     <button ion-button
-
+            (click)="saveDetail()"
+            [disabled]="!detail.price || !detail.quantity || !detail.total"
             block>
       Guardar Detalle
     </button>

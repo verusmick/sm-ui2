@@ -26,7 +26,8 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
 export class ProformaPage {
-  proformaData = {client: {razon_social: '', label:''}, items:[]};
+  proformaData = {client: {razon_social: '', label: ''}, items: []};
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController) {
@@ -36,8 +37,10 @@ export class ProformaPage {
     let searchClientmodal = this.modalCtrl.create(ModalContentPage, characterNum);
     searchClientmodal.present();
     searchClientmodal.onDidDismiss(clientSelected => {
-      if(!clientSelected){return false}
-      clientSelected['label'] =clientSelected.tipo.toLowerCase()+' '+clientSelected.razon_social.toLowerCase();
+      if (!clientSelected) {
+        return false
+      }
+      clientSelected['label'] = clientSelected.tipo.toLowerCase() + ' ' + clientSelected.razon_social.toLowerCase();
       this.proformaData.client = clientSelected
     });
   }
@@ -46,7 +49,7 @@ export class ProformaPage {
     let productsModal = this.modalCtrl.create(ProductsModal);
     productsModal.present();
     productsModal.onDidDismiss(product => {
-      if(product){
+      if (product) {
         this.proformaData.items.push(product)
       }
     });
@@ -56,15 +59,17 @@ export class ProformaPage {
     this.proformaData.items.splice(index, 1)
   }
 
-  detailProductBtn(product) {
-    let productDetailModal = this.modalCtrl.create(ProductDetailModal, {prod: product});
+  detailProductBtn(product, index) {
+    let productDetailModal = this.modalCtrl.create(ProductDetailModal, {prod: product, index: index});
     productDetailModal.present();
-    productDetailModal.onDidDismiss(productDetail => {
-      console.log('productDetail', {prod: productDetail});
+    productDetailModal.onDidDismiss((productDetail, index) => {
+      if (productDetail) {
+        this.proformaData.items[index]['detail'] = productDetail;
+      }
     });
   }
 
-  saveProforma(){
+  saveProforma() {
     console.log(this.proformaData);
   }
 
@@ -78,17 +83,37 @@ export class ProformaPage {
   templateUrl: 'productDetail.modal.html'
 })
 export class ProductDetailModal {
+  detail: any;
   product: any;
+  referencialPrice: any;
 
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,) {
-    console.log(this.params.get('prod'));
+    this.detail = {price: null, quantity: null, total: 0};
     this.product = this.params.get('prod')
+    console.log(this.params.get('index'))
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  selectPrice() {
+    if (this.referencialPrice) {
+      this.detail['price'] = this.product[this.referencialPrice]
+      this.calculateTotal();
+    }
+  }
+
+  calculateTotal() {
+    let total = parseFloat(this.detail['price']) * parseFloat(this.detail.quantity);
+    this.detail.total = total || 0;
+  }
+
+  saveDetail() {
+    this.detail.quantity = parseFloat(this.detail.quantity)
+    this.dismiss(this.detail);
+  }
+
+  dismiss(obj) {
+    this.viewCtrl.dismiss(obj, this.params.get('index'));
   }
 
   ionViewDidLoad() {
@@ -113,13 +138,13 @@ export class ProductsModal {
     this.searchControl = new FormControl();
   }
 
-  setFilteredProducts(){
+  setFilteredProducts() {
     this.proformaService.getProducts(this.searchTerm).then(data => {
-      this.items= data;
+      this.items = data;
     })
   }
 
-  selectProduct(product){
+  selectProduct(product) {
     this.dismiss(product)
   }
 
