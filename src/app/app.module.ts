@@ -14,6 +14,7 @@ import {InventoryPageModule} from '../pages/inventory/inventory.module'
 import {ProformaPageModule} from '../pages/proforma/proforma.module'
 import {ModalContentPage} from '../pages/proforma/proforma'
 import {ProductsModal} from '../pages/proforma/proforma'
+import {ProductDetailModal} from '../pages/proforma/proforma'
 import {GpsPageModule} from '../pages/gps/gps.module'
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +34,8 @@ import { ProformaServiceProvider } from '../providers/proforma-service/proforma-
     HomePage,
     ListPage,
     ModalContentPage,
-    ProductsModal
+    ProductsModal,
+    ProductDetailModal
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { ProformaServiceProvider } from '../providers/proforma-service/proforma-
     HomePage,
     ListPage,
     ModalContentPage,
-    ProductsModal
+    ProductsModal,
+    ProductDetailModal
   ],
   providers: [
     StatusBar,

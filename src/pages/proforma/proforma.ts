@@ -46,16 +46,22 @@ export class ProformaPage {
     let productsModal = this.modalCtrl.create(ProductsModal);
     productsModal.present();
     productsModal.onDidDismiss(product => {
-      this.proformaData.items.push(product)
+      if(product){
+        this.proformaData.items.push(product)
+      }
     });
   }
 
-  removeProductBtm(product, index) {
+  removeProductBtm(index) {
     this.proformaData.items.splice(index, 1)
   }
 
-  detailProductBtn(product, index){
-    console.log('detailProductBtn', index);
+  detailProductBtn(index) {
+    let productDetailModal = this.modalCtrl.create(ProductDetailModal, this.proformaData.items[index]);
+    productDetailModal.present();
+    productDetailModal.onDidDismiss(productDetail => {
+      console.log('productDetail', productDetail);
+    });
   }
 
   saveProforma(){
@@ -66,6 +72,26 @@ export class ProformaPage {
     console.log('ionViewDidLoad LoginPage');
   }
 }
+
+// Products modal
+@Component({
+  templateUrl: 'productDetail.modal.html'
+})
+export class ProductDetailModal {
+
+  constructor(public platform: Platform,
+              public params: NavParams,
+              public viewCtrl: ViewController,) {
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  ionViewDidLoad() {
+  }
+}
+
 
 // Products modal
 @Component({

@@ -28,8 +28,8 @@
       {{ item.producto | lowercase}} {{item.concentrado | lowercase}}
       <br>
       <h5><b>Subtotal</b> 34 items</h5>
-      <button ion-button item-end outline (click)="detailProductBtn(item, i)">Detalle</button>
-      <button ion-button item-end (click)="removeProductBtm(item, i)">X</button>
+      <button ion-button item-end outline (click)="detailProductBtn(i)">Detalle</button>
+      <button ion-button item-end (click)="removeProductBtm(i)">X</button>
     </ion-item>
   </ion-list>
 
