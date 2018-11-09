@@ -24,11 +24,18 @@
   </ion-item>
 
   <ion-list>
-    <ion-item>
-      <ion-label>test1</ion-label>
+    <ion-item *ngFor="let item of proformaData.items; let i = index">
+      {{ item.producto | lowercase}} {{item.concentrado | lowercase}}
+      <br>
+      <h5><b>Subtotal</b> 34 items</h5>
+      <button ion-button item-end outline (click)="detailProductBtn(item, i)">Detalle</button>
+      <button ion-button item-end (click)="removeProductBtm(item, i)">X</button>
     </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="proformaData.items?.length === 0">
     <ion-item>
-      <ion-label>test2</ion-label>
+      <h3 ion-text color="danger" text-center>Ningún Producto Agregado</h3>
     </ion-item>
   </ion-list>
 

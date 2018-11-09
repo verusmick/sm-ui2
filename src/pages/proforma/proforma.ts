@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Platform, ViewController  } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController,
+  Platform,
+  ViewController
+} from 'ionic-angular';
 
 import {FormControl} from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
@@ -38,9 +45,17 @@ export class ProformaPage {
   addProductBtn() {
     let productsModal = this.modalCtrl.create(ProductsModal);
     productsModal.present();
-    productsModal.onDidDismiss(data => {
-      console.log('onDidDismiss->', data);
+    productsModal.onDidDismiss(product => {
+      this.proformaData.items.push(product)
     });
+  }
+
+  removeProductBtm(product, index) {
+    this.proformaData.items.splice(index, 1)
+  }
+
+  detailProductBtn(product, index){
+    console.log('detailProductBtn', index);
   }
 
   saveProforma(){
