@@ -6,13 +6,43 @@
 
 <ion-content>
   <ion-item>
-    <ion-label stacked>Seleccione un Cliente:</ion-label>
+    <ion-label stacked>Seleccione un Cliente(*)</ion-label>
     <!--[disabled]="true"-->
     <ion-input type="text"
                (ionFocus)="openSearchClientModal({charNum: 1})"
                [(ngModel)]="proformaData.client.label"
                name="razon_social"
                placeholder="Seleccione un Cliente">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Tipo de Pago(*)</ion-label>
+    <ion-select [(ngModel)]="proformaData.payType">
+      <ion-option value="1">
+        Contado
+      </ion-option>
+      <ion-option value="2">
+        Credito
+      </ion-option>
+    </ion-select>
+  </ion-item>
+
+  <h6 text-center>Datos para factura</h6>
+
+  <ion-item>
+    <ion-label stacked>Señor(es)</ion-label>
+    <ion-input type="text"
+               name="sr"
+               placeholder="Señor(es)"
+               [(ngModel)]="proformaData.billName">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>NIT</ion-label>
+    <ion-input type="text"
+               name="nit"
+               placeholder="NIT"
+               [(ngModel)]="proformaData.nit">
     </ion-input>
   </ion-item>
 
@@ -27,7 +57,7 @@
     <ion-item *ngFor="let item of proformaData.items; let i = index">
       {{ item.producto | lowercase}} {{item.concentrado | lowercase}}
       <br>
-      <h5><b>Subtotal</b> 34 items</h5>
+      <h5 *ngIf="item.detail.total"><b>Subtotal:</b> {{item.detail.total}}&nbsp; <b>Cantidad:</b> {{item.detail.quantity}}</h5>
       <button ion-button item-end outline (click)="detailProductBtn(item, i)">Detalle</button>
       <button ion-button item-end (click)="removeProductBtm(i)">X</button>
     </ion-item>
@@ -38,10 +68,17 @@
       <h3 ion-text color="danger" text-center>Ningún Producto Agregado</h3>
     </ion-item>
   </ion-list>
-
+  <ion-item *ngIf="proformaData.items.length > 0">
+    <ion-label>
+      <h1><b>Total</b></h1>
+      <h1><b>{{proformaData.total}} Bs.</b></h1>
+    </ion-label>
+  </ion-item>
   <div paddingfull>
     <button ion-button
-            [disabled]="!proformaData.client.razon_social"
+            [disabled]="
+            !proformaData.client.razon_social ||
+            !proformaData.payType || proformaData.items.length === 0"
             (click)="saveProforma()"
             block>
       Guardar proforma

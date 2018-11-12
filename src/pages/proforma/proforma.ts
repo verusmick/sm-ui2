@@ -26,7 +26,14 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
   templateUrl: 'proforma.html',
 })
 export class ProformaPage {
-  proformaData = {client: {razon_social: '', label: ''}, items: []};
+  proformaData = {
+    client: {razon_social: '', label: ''},
+    items: [],
+    nit: '',
+    billName: '',
+    payType: null,
+    total: null
+  };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,9 +44,7 @@ export class ProformaPage {
     let searchClientmodal = this.modalCtrl.create(ModalContentPage, characterNum);
     searchClientmodal.present();
     searchClientmodal.onDidDismiss(clientSelected => {
-      if (!clientSelected) {
-        return false
-      }
+      if (!clientSelected) {return false}
       clientSelected['label'] = clientSelected.tipo.toLowerCase() + ' ' + clientSelected.razon_social.toLowerCase();
       this.proformaData.client = clientSelected
     });
@@ -50,23 +55,38 @@ export class ProformaPage {
     productsModal.present();
     productsModal.onDidDismiss(product => {
       if (product) {
+        product['detail'] =  {price: null, quantity: null, total: 0};
         this.proformaData.items.push(product)
+        this.detailProductBtn(product, this.proformaData.items.length - 1)
+
       }
     });
   }
 
   removeProductBtm(index) {
     this.proformaData.items.splice(index, 1)
+    this.calculateTotal();
   }
 
   detailProductBtn(product, index) {
     let productDetailModal = this.modalCtrl.create(ProductDetailModal, {prod: product, index: index});
     productDetailModal.present();
     productDetailModal.onDidDismiss((productDetail, index) => {
-      if (productDetail) {
+      if(!productDetail){
+        this.removeProductBtm(index);
+      }else if (productDetail) {
         this.proformaData.items[index]['detail'] = productDetail;
+        this.calculateTotal();
       }
     });
+  }
+
+  calculateTotal() {
+    let total = 0;
+    for (let i = 0; i < this.proformaData.items.length; i++) {
+      total = this.proformaData.items[i].detail.total + total;
+    }
+    this.proformaData.total = total;
   }
 
   saveProforma() {
@@ -90,9 +110,8 @@ export class ProductDetailModal {
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,) {
-    this.detail = {price: null, quantity: null, total: 0};
     this.product = this.params.get('prod')
-    console.log(this.params.get('index'))
+    this.detail = this.product.detail
   }
 
   selectPrice() {
