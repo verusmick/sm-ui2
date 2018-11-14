@@ -37,7 +37,8 @@ export class ProformaPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              public proformaService: ProformaServiceProvider) {
   }
 
   openSearchClientModal(characterNum) {
@@ -89,8 +90,32 @@ export class ProformaPage {
     this.proformaData.total = total;
   }
 
+  parseItems(items) {
+    let itemsList = [];
+    for (let i = 0; i < items.length; i++) {
+      itemsList.push({
+        productId: items[i].id_producto_venta,
+        price: items[i].detail.price,
+        quantity: items[i].detail.quantity,
+        subTotal: items[i].detail.total
+      })
+    }
+    return itemsList;
+  }
+
+  parseProforma(proformObj) {
+    return {
+      clientId: proformObj.client.id_cliente,
+      nit: proformObj.nit,
+      payType: proformObj.payType,
+      billName: proformObj.billName,
+      items: this.parseItems(proformObj.items),
+      total: proformObj.total
+    }
+  }
+
   saveProforma() {
-    console.log(this.proformaData);
+    this.proformaService.saveProforma(this.parseProforma(this.proformaData));
   }
 
   ionViewDidLoad() {

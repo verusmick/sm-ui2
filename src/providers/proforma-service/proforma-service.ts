@@ -38,4 +38,21 @@ export class ProformaServiceProvider {
         });
     });
   }
+
+  saveProforma(proformaObj) {
+    let token = localStorage.getItem('tk');
+    let userId = JSON.parse(localStorage.getItem('usr')).ci
+    return new Promise((resolve, reject) => {
+      this.http.post(API_ENDPOINT + '/orders', proformaObj, {
+        headers: {
+          'x-access-token': token,
+          'userid': userId
+        }
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }
