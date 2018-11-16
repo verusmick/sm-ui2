@@ -55,4 +55,21 @@ export class ProformaServiceProvider {
       });
     });
   }
+
+  getAllOrders(){
+    let token = localStorage.getItem('tk');
+    let userId = JSON.parse(localStorage.getItem('usr')).ci
+    return new Promise((resolve, reject) => {
+      this.http.get(API_ENDPOINT + '/orders', {
+        headers: {
+          'x-access-token': token,
+          'userid': userId
+        }
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }
