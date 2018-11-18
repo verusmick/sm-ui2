@@ -66,7 +66,7 @@ export class ProformaServiceProvider {
           'userid': userId
         }
       }).subscribe(data => {
-        resolve(data);
+        resolve(data.data);
       }, err => {
         reject(err)
       });
