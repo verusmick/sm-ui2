@@ -65,8 +65,8 @@ export class ProformaServiceProvider {
           'x-access-token': token,
           'userid': userId
         }
-      }).subscribe(data => {
-        resolve(data.data);
+      }).subscribe(response => {
+        resolve(response.data);
       }, err => {
         reject(err)
       });
