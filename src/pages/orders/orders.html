@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let order of orderList">
+    <ion-item *ngFor="let order of orderList" (click)="viewOrder(order)">
       <h4 color="danger">Pedido:{{order.orderDate | date :'MMM d, y h:mm:ss a'}}</h4>
       <h3><b>{{order.client.tipo | lowercase}} {{order.client.razon_social | lowercase}}</b></h3>
       Total: {{order.total}} Bs.

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {EditOrderPage} from '../edit-order/edit-order'
 
 import {ProformaServiceProvider} from '../../providers/proforma-service/proforma-service';
 /**
@@ -26,6 +27,13 @@ export class OrdersPage {
     this.proformaService.getAllOrders().then(response => {
       this.orderList = response;
     })
+  }
+
+  viewOrder(item) {
+    // console.log('-->', item);
+    this.navCtrl.setRoot(EditOrderPage, {
+      order: item
+    });
   }
 
   ionViewDidLoad() {
