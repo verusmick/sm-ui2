@@ -7,6 +7,7 @@ import {
   Platform,
   ViewController
 } from 'ionic-angular';
+import {OrdersPage} from '../orders/orders'
 
 import {FormControl} from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
@@ -27,6 +28,7 @@ import {ProformaServiceProvider} from '../../providers/proforma-service/proforma
 })
 export class ProformaPage {
   proformaData = {
+    orderId:null,
     client: {razon_social: '', label: ''},
     items: [],
     nit: '',
@@ -34,11 +36,16 @@ export class ProformaPage {
     payType: null,
     total: null
   };
+  editFlag: any;
+  editProformaData:{};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
               public proformaService: ProformaServiceProvider) {
+    this.editFlag = false;
+    this.editProformaData = navParams.get('order');
+    this.editFlag = !!this.editProformaData;
   }
 
   openSearchClientModal(characterNum) {
@@ -115,11 +122,76 @@ export class ProformaPage {
   }
 
   saveProforma() {
-    this.proformaService.saveProforma(this.parseProforma(this.proformaData));
+    console.log('tete', this.proformaData)
+    if(!this.editFlag){
+      this.proformaService.saveProforma(this.parseProforma(this.proformaData)).then(_=>{
+        this.navCtrl.setRoot(OrdersPage);
+      });
+    }else{
+      this.proformaService.editProforma(this.parseEditProforma(this.proformaData)).then(_=>{
+        this.navCtrl.setRoot(OrdersPage);
+      });
+    }
   }
 
+  setEditObjInModel(editObj) {
+    editObj.client['label'] = editObj.client.tipo.toLowerCase() + ' ' + editObj.client.razon_social.toLowerCase();
+    this.proformaData = {
+      orderId: editObj.orderId,
+      client: editObj.client,
+      items: this.parseEditItems(editObj.items),
+      nit: editObj.nit,
+      billName: editObj.billName,
+      payType: editObj.payType,
+      total: editObj.total
+    };
+  }
+
+  parseEditItems(items) {
+    let itemsList = [];
+    for (let i = 0; i < items.length; i++) {
+      let prod = items[i].product;
+      delete items[i].product;
+      prod['detail']=items[i];
+      prod['detail']['total'] = prod['detail']['subTotal'];
+      delete prod['detail']['subTotal']
+      itemsList.push(prod)
+    }
+    return itemsList;
+  }
+
+  parseEditProforma(proformObj) {
+    return {
+      orderId: proformObj.orderId,
+      clientId: proformObj.client.id_cliente,
+      nit: proformObj.nit,
+      payType: proformObj.payType,
+      billName: proformObj.billName,
+      items: this.setEditItems(proformObj.items),
+      total: proformObj.total
+    }
+  }
+
+  setEditItems(items) {
+    let itemsList = [];
+    for (let i = 0; i < items.length; i++) {
+      itemsList.push({
+        orderDetailId:items[i].detail.orderDetailId,
+        orderId:items[i].detail.orderId,
+
+        productId: items[i].id_producto_venta,
+        quantity: items[i].detail.quantity,
+        price: items[i].detail.price,
+        subTotal: items[i].detail.total
+      })
+    }
+    return itemsList;
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    if(this.editFlag){
+      this.setEditObjInModel(this.editProformaData);
+    }
   }
 }
 
@@ -163,7 +235,6 @@ export class ProductDetailModal {
   ionViewDidLoad() {
   }
 }
-
 
 // Products modal
 @Component({

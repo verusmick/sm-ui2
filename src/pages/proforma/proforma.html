@@ -1,6 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Proforma</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="!editFlag">Proforma</ion-title>
+    <ion-title *ngIf="editFlag">Editar Proforma</ion-title>
   </ion-navbar>
 </ion-header>
 

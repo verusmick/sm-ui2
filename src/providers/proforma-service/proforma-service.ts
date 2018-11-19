@@ -56,6 +56,23 @@ export class ProformaServiceProvider {
     });
   }
 
+  editProforma(proformaObj) {
+    let token = localStorage.getItem('tk');
+    let userId = JSON.parse(localStorage.getItem('usr')).ci
+    return new Promise((resolve, reject) => {
+      this.http.put(API_ENDPOINT + '/orders', proformaObj, {
+        headers: {
+          'x-access-token': token,
+          'userid': userId
+        }
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err)
+      });
+    });
+  }
+
   getAllOrders(){
     let token = localStorage.getItem('tk');
     let userId = JSON.parse(localStorage.getItem('usr')).ci
@@ -66,7 +83,7 @@ export class ProformaServiceProvider {
           'userid': userId
         }
       }).subscribe(response => {
-        resolve(response.data); 
+        resolve(response);
       }, err => {
         reject(err)
       });

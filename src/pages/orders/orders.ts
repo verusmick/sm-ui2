@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {EditOrderPage} from '../edit-order/edit-order'
+// import {EditOrderPage} from '../edit-order/edit-order'
+import {ProformaPage} from '../proforma/proforma'
 
 import {ProformaServiceProvider} from '../../providers/proforma-service/proforma-service';
 /**
@@ -31,7 +32,7 @@ export class OrdersPage {
 
   viewOrder(item) {
     // console.log('-->', item);
-    this.navCtrl.setRoot(EditOrderPage, {
+    this.navCtrl.setRoot(ProformaPage, {
       order: item
     });
   }
