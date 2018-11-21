@@ -89,4 +89,21 @@ export class ProformaServiceProvider {
       });
     });
   }
+
+  deleteOrder(orderId) {
+    let token = localStorage.getItem('tk');
+    let userId = JSON.parse(localStorage.getItem('usr')).ci
+    return new Promise((resolve, reject) => {
+      this.http.delete(API_ENDPOINT + '/orders/' + orderId, {
+        headers: {
+          'x-access-token': token,
+          'userid': userId
+        }
+      }).subscribe(response => {
+        resolve(response);
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }

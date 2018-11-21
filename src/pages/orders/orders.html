@@ -9,10 +9,15 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let order of orderList" (click)="viewOrder(order)">
+    <ion-item *ngFor="let order of orderList">
       <h4 style="margin-top: 3px">Pedido:{{order.orderDate | date :'MMM d, y h:mm:ss a'}}</h4>
-      <h3><b>{{order.client.tipo | lowercase}} {{order.client.razon_social | lowercase}}</b></h3>
+      <h3  ion-text color="danger">Estado:{{order.registeredDate? 'Registrado':'Pendiente'}}</h3>
+      <h3><b>{{order.client.tipo | lowercase}}</b></h3>
+      <h3><b>{{order.client.razon_social | lowercase}}</b></h3>
+
       Total: {{order.total}} Bs.
+      <button ion-button item-end (click)="viewOrder(order)" *ngIf="!order.registeredDate" >Edit</button>
+      <button ion-button item-end *ngIf="!order.registeredDate" (click)="deleteOrder(order)">X</button>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -26,8 +26,19 @@ export class OrdersPage {
 
   getAllOrders() {
     this.proformaService.getAllOrders().then(response => {
-      this.orderList = response;
+      this.orderList = this.filterOrderList(response);
     })
+  }
+
+  filterOrderList (orders){
+    let orderListReturn =[]
+    let userId = JSON.parse(localStorage.getItem('usr')).ci;
+    orders.forEach(order=>{
+      if(order.userId === userId){
+        orderListReturn.push(order);
+      }
+    })
+    return orderListReturn;
   }
 
   viewOrder(item) {
@@ -35,6 +46,19 @@ export class OrdersPage {
     this.navCtrl.setRoot(ProformaPage, {
       order: item
     });
+  }
+
+  deleteOrder(item) {
+    this.proformaService.deleteOrder(item.orderId).then(response => {
+      let indexItem = null;
+
+      this.orderList.forEach((order, index) => {
+        if (order.orderId === item.orderId) {
+          indexItem = index
+        }
+      });
+      this.orderList.splice(indexItem, 1);
+    })
   }
 
   ionViewDidLoad() {
