@@ -68,7 +68,7 @@
   <div paddingfull>
     <button ion-button
             (click)="saveDetail()"
-            [disabled]="!detail.price || !detail.quantity || !detail.total"
+            [disabled]="!detail.price || !detail.quantity || !detail.total || detail.quantity < 1"
             block>
       Guardar Detalle
     </button>
