@@ -20,6 +20,7 @@ import {AuthServiceProvider} from '../../providers/auth-service/auth-service'
 export class LoginPage {
   authUserData = {ci: '', password: ''};
   responseData: any;
+  flagValidation: false;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -36,12 +37,16 @@ export class LoginPage {
 
   login() {
     this.authService.login(this.authUserData).then(data => {
-      this.responseData = data;
-      localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
-      localStorage.setItem('tk', this.responseData.data.token);
-      this.events.publish('setMenu');
-      this.menuCtrl.enable(true, 'myMenu');
-      this.navCtrl.setRoot(HomePage);
+      if(data.status === 'error'){
+        this.flagValidation = true
+      }else{
+        this.responseData = data;
+        localStorage.setItem('usr', JSON.stringify(this.responseData.data.user));
+        localStorage.setItem('tk', this.responseData.data.token);
+        this.events.publish('setMenu');
+        this.menuCtrl.enable(true, 'myMenu');
+        this.navCtrl.setRoot(HomePage);
+      }
     }).catch(error => {
       console.error(error);
     })
