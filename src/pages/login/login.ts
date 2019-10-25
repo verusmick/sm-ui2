@@ -21,6 +21,7 @@ export class LoginPage {
   authUserData = {ci: '', password: ''};
   responseData: any;
   flagValidation: false;
+  showPassword: false;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -33,6 +34,10 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+
+  showPasswordFunction() {
+    this.showPassword = !this.showPassword;
   }
 
   login() {

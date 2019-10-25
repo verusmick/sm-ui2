@@ -21,7 +21,15 @@
       <ion-item>
         <ion-icon name="key" item-left></ion-icon>
         <ion-label stacked>Password:</ion-label>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="authUserData.password" name="password"></ion-input>
+        <ion-input [type]="showPassword ? 'text':'password'"
+                   placeholder="Password"
+                   [(ngModel)]="authUserData.password"
+                   name="password">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label >Mostrar Password</ion-label>
+        <ion-checkbox color="primary" (ionChange)="showPasswordFunction()"></ion-checkbox>
       </ion-item>
     </ion-list>
     <div padding>
