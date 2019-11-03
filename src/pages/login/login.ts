@@ -20,8 +20,8 @@ import {AuthServiceProvider} from '../../providers/auth-service/auth-service'
 export class LoginPage {
   authUserData = {ci: '', password: ''};
   responseData: any;
-  flagValidation: false;
-  showPassword: false;
+  flagValidation: boolean = false;
+  showPassword: boolean =  false;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -42,7 +42,7 @@ export class LoginPage {
 
   login() {
     this.authService.login(this.authUserData).then(data => {
-      if(data.status === 'error'){
+      if(data[status] === 'error'){
         this.flagValidation = true
       }else{
         this.responseData = data;
