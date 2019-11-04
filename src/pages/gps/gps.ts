@@ -45,15 +45,15 @@ export class GpsPage {
   start() {
 
     const config: BackgroundGeolocationConfig = {
-      desiredAccuracy: 10,
+      desiredAccuracy: 0,
       stationaryRadius: 1,
       distanceFilter: 1,
-      debug: true,
+      debug: false,
       stopOnTerminate: false,
       // Android only section
       locationProvider: 1,
       startForeground: true,
-      interval: 6000,
+      interval: 2000,
       fastestInterval: 5000,
       activitiesInterval: 10000,
       ///
@@ -76,7 +76,7 @@ export class GpsPage {
 
   }
   stopBackgroundGeolocation() {
-    alert('STOP')
+    // alert('STOP')
     this.gpsTrackingService.setGpsStatus('off', JSON.parse(localStorage.getItem('usr')).ci);
     this.backgroundGeolocation.stop();
   }
