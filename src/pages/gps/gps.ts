@@ -53,7 +53,7 @@ export class GpsPage {
       // Android only section
       locationProvider: 1,
       startForeground: true,
-      interval: 2000,
+      interval: 6000,
       fastestInterval: 5000,
       activitiesInterval: 10000,
       ///
@@ -76,7 +76,7 @@ export class GpsPage {
 
   }
   stopBackgroundGeolocation() {
-    // alert('STOP')
+    alert('STOP')
     this.gpsTrackingService.setGpsStatus('off', JSON.parse(localStorage.getItem('usr')).ci);
     this.backgroundGeolocation.stop();
   }
