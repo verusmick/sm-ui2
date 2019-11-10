@@ -17,7 +17,12 @@ export class GpstrackingServiceProvider {
 
   createCoordinate(coordinate){
     return new Promise((resolve, reject) => {
-      this.http.post(API_ENDPOINT + '/gpsTracking/sellers', coordinate).subscribe(data => {
+      this.http.post(API_ENDPOINT + '/gpsTracking/sellers', coordinate,  {
+        headers: {
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
+        }
+      }).subscribe(data => {
         console.log(data);
         resolve(data);
       }, err => {
@@ -28,7 +33,14 @@ export class GpstrackingServiceProvider {
 
   setGpsStatus(status, userId) {
     return new Promise((resolve, reject) => {
-      this.http.put(API_ENDPOINT + `/gpsTracking/trackStatus/${status === 'on' ? 1 : 2}`, {userId: userId}).subscribe(data => {
+      this.http.put(API_ENDPOINT + `/gpsTracking/trackStatus/${status === 'on' ? 1 : 2}`, {userId: userId},
+        {
+          headers: {
+            'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' ' + JSON.parse(localStorage.getItem('usr')).firstSurname,
+            'ci': JSON.parse(localStorage.getItem('usr')).ci
+          }
+        }
+      ).subscribe(data => {
         console.log(data);
         resolve(data);
       }, err => {

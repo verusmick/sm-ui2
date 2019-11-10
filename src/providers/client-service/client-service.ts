@@ -19,7 +19,13 @@ export class ClientServiceProvider {
   getAll(searchTerm) {
     let token = localStorage.getItem('tk')
     return new Promise((resolve, reject) => {
-      this.http.get(API_ENDPOINT + '/clients'+'?like='+searchTerm.trim(), {headers: {'x-access-token': token}})
+      this.http.get(API_ENDPOINT + '/clients' + '?like=' + searchTerm.trim(), {
+        headers: {
+          'x-access-token': token,
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' ' + JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
+        }
+      })
         .subscribe(data => {
           resolve(data);
         }, err => {

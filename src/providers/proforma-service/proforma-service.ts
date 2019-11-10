@@ -18,8 +18,15 @@ export class ProformaServiceProvider {
   getClients(searchTerm) {
     let token = localStorage.getItem('tk')
     return new Promise((resolve, reject) => {
-      this.http.get(API_ENDPOINT + '/clients'+'?like='+searchTerm.trim(), {headers: {'x-access-token': token}})
-        .subscribe(data => {
+      this.http.get(API_ENDPOINT + '/clients'+'?like='+searchTerm.trim(),
+        {
+          headers: {
+            'x-access-token': token,
+            'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+            'ci': JSON.parse(localStorage.getItem('usr')).ci
+          }
+        }
+      ).subscribe(data => {
           resolve(data);
         }, err => {
           reject(err)
@@ -30,7 +37,14 @@ export class ProformaServiceProvider {
   getProducts(searchTerm) {
     let token = localStorage.getItem('tk')
     return new Promise((resolve, reject) => {
-      this.http.get(API_ENDPOINT + '/inventory'+'?like='+searchTerm.trim(), {headers: {'x-access-token': token}})
+      this.http.get(API_ENDPOINT + '/inventory' + '?like=' + searchTerm.trim(), {
+          headers: {
+            'x-access-token': token,
+            'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+            'ci': JSON.parse(localStorage.getItem('usr')).ci
+          }
+        }
+      )
         .subscribe(data => {
           resolve(data);
         }, err => {
@@ -46,7 +60,9 @@ export class ProformaServiceProvider {
       this.http.post(API_ENDPOINT + '/orders', proformaObj, {
         headers: {
           'x-access-token': token,
-          'userid': userId
+          'userid': userId,
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
         }
       }).subscribe(data => {
         resolve(data);
@@ -63,7 +79,9 @@ export class ProformaServiceProvider {
       this.http.put(API_ENDPOINT + '/orders', proformaObj, {
         headers: {
           'x-access-token': token,
-          'userid': userId
+          'userid': userId,
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
         }
       }).subscribe(data => {
         resolve(data);
@@ -80,7 +98,9 @@ export class ProformaServiceProvider {
       this.http.get(API_ENDPOINT + '/orders', {
         headers: {
           'x-access-token': token,
-          'userid': userId
+          'userid': userId,
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
         }
       }).subscribe(response => {
         resolve(response);
@@ -97,7 +117,9 @@ export class ProformaServiceProvider {
       this.http.delete(API_ENDPOINT + '/orders/' + orderId, {
         headers: {
           'x-access-token': token,
-          'userid': userId
+          'userid': userId,
+          'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' '+JSON.parse(localStorage.getItem('usr')).firstSurname,
+          'ci': JSON.parse(localStorage.getItem('usr')).ci
         }
       }).subscribe(response => {
         resolve(response);
