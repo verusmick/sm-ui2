@@ -49,8 +49,8 @@ export class MyApp {
       {title: 'Home', component: HomePage, resourceCode: 'app_Track'},
       {title: 'GPS', component: GpsPage, resourceCode: 'app_Track'},
 
-      {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_order'},
-      {title: 'Productos', component: InventoryPage, resourceCode: 'app_order'},
+      {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_clients'},
+      {title: 'Productos', component: InventoryPage, resourceCode: 'app_products'},
       // {title: 'Lists', component: ListPage, resourceCode: 'app_order'},
       {title: 'Crear Proforma', component: ProformaPage, resourceCode: 'app_order'},
       {title: 'Lista de Proformas', component: OrdersPage, resourceCode: 'app_order'}
