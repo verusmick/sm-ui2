@@ -36,7 +36,7 @@ export class ClientsPage {
     });
   }
   setFilteredItems() {
-    this.clientService.getAll(this.searchTerm).then(response=>{
+    this.clientService.getAll(this.searchTerm, null).then(response=>{
       this.items = response
     })
   }
