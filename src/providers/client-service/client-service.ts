@@ -16,10 +16,11 @@ export class ClientServiceProvider {
     console.log('Hello ClientServiceProvider Provider');
   }
 
-  getAll(searchTerm) {
-    let token = localStorage.getItem('tk')
+  getAll(searchTerm, debtClient) {
+    let token = localStorage.getItem('tk');
+    let keyDebt = debtClient? `&debt=${debtClient}`:'';
     return new Promise((resolve, reject) => {
-      this.http.get(API_ENDPOINT + '/clients' + '?like=' + searchTerm.trim(), {
+      this.http.get(API_ENDPOINT + '/clients' + '?like=' + searchTerm.trim()+keyDebt, {
         headers: {
           'x-access-token': token,
           'userName': JSON.parse(localStorage.getItem('usr')).firstName + ' ' + JSON.parse(localStorage.getItem('usr')).firstSurname,

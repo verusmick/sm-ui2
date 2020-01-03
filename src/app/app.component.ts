@@ -10,6 +10,7 @@ import {GpsPage} from '../pages/gps/gps';
 import {InventoryPage} from '../pages/inventory/inventory';
 // import {ListPage} from '../pages/list/list';
 import {ClientsPage} from '../pages/clients/clients';
+import {DebtClientPage} from '../pages/debt-client/debt-client';
 import {ProformaPage} from '../pages/proforma/proforma';
 import {OrdersPage} from '../pages/orders/orders';
 
@@ -50,6 +51,8 @@ export class MyApp {
       {title: 'GPS', component: GpsPage, resourceCode: 'app_Track'},
 
       {title: 'Lista de Clientes', component: ClientsPage, resourceCode: 'app_clients'},
+      {title: 'Clientes con Deuda', component: DebtClientPage, resourceCode: 'app_clients'},
+
       {title: 'Productos', component: InventoryPage, resourceCode: 'app_products'},
       // {title: 'Lists', component: ListPage, resourceCode: 'app_order'},
       {title: 'Crear Proforma', component: ProformaPage, resourceCode: 'app_order'},

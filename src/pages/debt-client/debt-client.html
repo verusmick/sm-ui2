@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Clientes con Deuda </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar [(ngModel)]="searchTerm"  [formControl]="searchControl"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <span><b>Tipo: </b>{{ item.tipo | lowercase }}</span> <br>
+      <b>{{ item.razon_social | lowercase }}</b>
+      <br>
+      <span *ngIf= "item.deuda_actual"><b>Deuda Actual:</b> {{item.deuda_actual}} bs.</span>
+    </ion-item>
+  </ion-list>
+</ion-content>
