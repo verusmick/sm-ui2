@@ -17,8 +17,9 @@ import {ClientServiceProvider} from '../../providers/client-service/client-servi
   templateUrl: 'debt-client.html',
 })
 export class DebtClientPage {
-  items: any;
+  items: any[any] ;
   searchTerm: string = '';
+  filterUpperDebtParam: boolean = false;
   searchControl: FormControl;
 
   constructor(
@@ -36,9 +37,25 @@ export class DebtClientPage {
   }
 
   setFilteredItems() {
-    this.clientService.getAll(this.searchTerm, '>0').then(response=>{
-      this.items = response
-    })
+    this.clientService.getAll(this.searchTerm, '>0').then((response: any[]) => {
+      response.sort((a, b): number => {
+        return b.deuda_actual - a.deuda_actual;
+      });
+      this.items = response;
+      if (this.filterUpperDebtParam) {
+        let list = [];
+        this.items.forEach(function (item) {
+          if (item.deuda_actual >= 20000) {
+            list.push(item)
+          }
+        });
+        this.items = list;
+      }
+    });
   }
 
+  filterUpperDebt(){
+    this.filterUpperDebtParam = !this.filterUpperDebtParam;
+    this.setFilteredItems();
+  }
 }
