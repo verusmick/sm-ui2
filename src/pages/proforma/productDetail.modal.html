@@ -25,16 +25,16 @@
       <h3>{{product.cantidad_a_la_venta}}</h3>
     </ion-label>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="product.precio_distribuidora || product.precio_farmacia ||product.precio_instituciones ">
     <ion-label stacked>Precio Referencial</ion-label>
     <ion-select [(ngModel)]="referencialPrice" (ngModelChange)="selectPrice()">
-      <ion-option value="precio_distribuidora">
+      <ion-option value="precio_distribuidora" *ngIf="product.precio_distribuidora">
         Precio distribuidora: <b>{{product.precio_distribuidora}}</b>
       </ion-option>
-      <ion-option value="precio_farmacia">
+      <ion-option value="precio_farmacia" *ngIf="product.precio_farmacia">
         Precio Farmacia: <b>{{product.precio_farmacia}}
       </b></ion-option>
-      <ion-option value="precio_instituciones">
+      <ion-option value="precio_instituciones" *ngIf="product.precio_instituciones">
         Precio Instituciones: <b>{{product.precio_instituciones}}</b>
       </ion-option>
     </ion-select>
